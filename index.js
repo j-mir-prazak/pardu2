@@ -5,7 +5,7 @@ var events = require('events')
 var fs = require('fs')
 var schedule = require('node-schedule')
 var omx = require('node-mplayer')
-var isrunning = require('isrunning')
+var isrunning = require('is-running')
 
 
 //clean up
