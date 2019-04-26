@@ -11,6 +11,7 @@ var isrunning = require('is-running')
 //clean up
 process.on('SIGHUP',  function(){ console.log('\nCLOSING: [SIGHUP]'); process.emit("SIGINT"); })
 process.on('SIGINT',  function(){
+	 pids.push(spawner.spawn('bash', ['-c', './cleanup.sh']).pid)
 	 console.log('\nCLOSING: [SIGINT]');
 	 for (var i = 0; i < pids.length; i++) {
 		if (isrunning(pids[i])){

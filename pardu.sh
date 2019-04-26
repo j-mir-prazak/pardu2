@@ -32,6 +32,7 @@ function looping {
 	  echo ""
 	  echo ""
 		./socatcleaner.sh
+		./cleanup.sh
 		node index.js &
 		PROC2=$!
 		trap 'kill -SIGINT $PROC2; trap SIGINT; break' SIGINT
