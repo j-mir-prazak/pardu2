@@ -13,7 +13,7 @@ process.on('SIGHUP',  function(){ console.log('\nCLOSING: [SIGHUP]'); process.em
 process.on('SIGINT',  function(){
 	 console.log('\nCLOSING: [SIGINT]');
 	 for (var i = 0; i < pids.length; i++) {
-		if (isrunning(pids[i]){
+		if (isrunning(pids[i])){
 		console.log("KILLING: " + pids[i])
 		process.kill(-pids[i], 0)
 		}
