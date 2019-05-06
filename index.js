@@ -421,7 +421,8 @@ function cat(id) {
 					"press":key+"-"+state,
 					"key":key,
 					"state":state,
-					"time":time
+					"time":time,
+					"stdout":false
 				}
 				// console.log(press)
 				presses.unshift(press)
@@ -559,13 +560,13 @@ function setupPlayer(argument) {
 		console.log(argument + " exists")
 		current_file = argument
 		var player = {
-		"player": omx("pd/" + argument, 95),
-		"volume": 95,
+		"player": omx("pd/" + argument, 85),
+		"volume": 85,
 		"state":0
 		}
 		var pid = player["player"].pid
 		pids.push(pid)
-		player["player"].pause()
+		// player["player"].pause()
 		player["state"] = 0
 
 	}
@@ -579,6 +580,7 @@ function setupPlayer(argument) {
 			string=string.split(/\r?\n/)
 
 			for( var i = 0; i < string.length; i++) {
+
 
 				 if (string[i].length > 0 && string[i].match(/Starting playback/) )
 				{
