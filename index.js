@@ -11,7 +11,7 @@ var isrunning = require('is-running')
 //clean up
 process.on('SIGHUP',  function(){ console.log('\nCLOSING: [SIGHUP]'); process.emit("SIGINT"); })
 process.on('SIGINT',  function(){
-	 pids.push(spawner.spawn('bash', ['-c', './cleanup.sh']).pid)
+	 spawner.spawn('bash', ['-c', './cleanup.sh']).pid
 	 console.log('\nCLOSING: [SIGINT]');
 	 for (var i = 0; i < pids.length; i++) {
 		if (isrunning(pids[i])){
@@ -60,7 +60,7 @@ console.log("ttys:")
 console.log(ttys)
 console.log("presenter: " + presenter)
 console.log("arduino: " + arduino)
-console.log("enttek: " +enttek)
+console.log("enttek: " + enttek)
 if (player) console.log("player state: " + player["state"])
 presenter_check()
 devices_status()
@@ -209,7 +209,6 @@ function devices_status() {
 	var ent = ""
 	var ard = ""
 
-
 	for (var i in ttys) {
 		if ( ttys[i]["vendor"] == "0403" ) ent = ttys[i]["tty"]
 		if ( ttys[i]["vendor"] == "2341" ) ard = ttys[i]["tty"]
@@ -217,10 +216,11 @@ function devices_status() {
 	}
 	if ( enttek && enttek != ent ) {
 		ent = "loaded"
-		console.log("change")
+		console.log("entek change")
 	}
-	if ( arduino && arduino != arduino ) {
-		console.log("change")
+	if ( arduino != ard ) {
+		console.log("arduino change")
+		pids.push(spawner.spawn('bash', ['-c', './sendOverTCP.sh \"' + "ard " + ard + '\"']).pid)
 	}
 
 	enttek = ent;
@@ -436,7 +436,7 @@ function cat(id) {
 							console.log(press["press"])
 							pids.push(spawner.spawn('bash', ['-c', './sendOverTCP.sh \"' + press["press"] + '\"']).pid)
 						}
-					}.bind(null, presses), 500)
+					}.bind(null, presses), 800)
 				}
 			}
 			else if ( string[i].length > 0 && string[i].match(/key /) && presenter != xinputs[tty]["id"] && presser ) clearInterval(presser)
